@@ -245,23 +245,7 @@ textarea.student-input:focus {
   padding: 6px 10px; border-radius: 6px; font-size: 0.9rem; cursor: pointer;
 }
 
-/* ── Bottom Nav ──────────────────────────── */
-.navbar {
-  display: flex; align-items: center; justify-content: center; gap: 12px;
-  padding: 14px 24px; background: var(--bg-card);
-  border-top: 1px solid var(--border); position: sticky; bottom: 0; z-index: 100;
-}
-.nav-btn {
-  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-  color: var(--text); padding: 10px 24px; border-radius: 8px;
-  cursor: pointer; font-size: 0.95rem; font-weight: 600;
-  transition: all 0.2s; font-family: var(--font-ui);
-}
-.nav-btn:hover { background: rgba(79,195,247,0.15); border-color: var(--accent); }
-.nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-.nav-btn.primary { background: var(--accent); color: #1a1a2e; border-color: var(--accent); }
-.nav-btn.primary:hover { filter: brightness(1.1); }
-.slide-indicator { color: var(--text-dim); font-size: 0.9rem; min-width: 60px; text-align: center; }
+
 
 /* ── Tabs for code examples ──────────────── */
 .tab-row { display: flex; gap: 4px; margin-bottom: -1px; }
@@ -294,7 +278,7 @@ textarea.student-input:focus {
 
 /* ── Print ───────────────────────────────── */
 @media print {
-  .topbar, .navbar { display: none; }
+  .topbar { display: none; }
   .slide { display: block !important; page-break-after: always; }
   .stage { padding: 0; }
 }
@@ -441,7 +425,7 @@ textarea.student-input:focus {
   <a href="/" style="color:var(--text-dim);text-decoration:none;font-size:0.85rem;" title="Back to all notes">← Notes</a>
   <div class="logo">🔄 <span>For</span> Loops</div>
   <div class="sep"></div>
-  <div class="progress-label" id="progressLabel">Slide 1/30</div>
+  <div class="progress-label" id="progressLabel" style="font-weight:700;font-size:0.9rem;">Slide 1/30</div>
   <div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:3.3%"></div></div>
   <button class="btn-icon" onclick="toggleDrawer()" title="Slide Overview (Esc to close)">⊞ Overview</button>
   <button class="btn-icon" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
@@ -1320,14 +1304,7 @@ ShowMessage(IntToStr(iCount));  <span class="co">// displays 25</span></code></p
 </div><!-- /#slidesContainer -->
 </div><!-- /.stage -->
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- BOTTOM NAV -->
-<!-- ═══════════════════════════════════════════════ -->
-<div class="navbar">
-  <button class="nav-btn" id="btnPrev" onclick="goSlide(-1)">← Previous</button>
-  <span class="slide-indicator" id="slideIndicator">1 / 30</span>
-  <button class="nav-btn primary" id="btnNext" onclick="goSlide(1)">Next →</button>
-</div>
+
 
 <!-- ═══════════════════════════════════════════════ -->
 <!-- SCRIPTS -->
@@ -1348,9 +1325,7 @@ function goSlide(dir) {
 }
 
 function updateNav() {
-  document.getElementById('btnPrev').disabled = currentSlide === 0;
-  document.getElementById('btnNext').disabled = currentSlide === totalSlides - 1;
-  document.getElementById('slideIndicator').textContent = `${currentSlide + 1} / ${totalSlides}`;
+  // Nav buttons removed — using top bar + keyboard + swipe
   document.getElementById('progressLabel').textContent = `Slide ${currentSlide + 1}/${totalSlides}`;
   document.getElementById('progressBar').style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
 }
@@ -1696,6 +1671,22 @@ setInterval(() => {
     }
   });
 }, 1000);
+
+
+// ── Touch swipe ─────────────────────────────
+let touchStartX = 0;
+let touchStartY = 0;
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, {passive: true});
+document.addEventListener('touchend', (e) => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+    goSlide(dx < 0 ? 1 : -1);
+  }
+});
 
 // ── Init ───────────────────────────────────
 updateNav();
