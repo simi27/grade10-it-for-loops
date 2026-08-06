@@ -164,7 +164,7 @@ main.wrap { padding-top: 22px; padding-bottom: 40px; min-height: 100vh; }
 .listing-head-text h1 { margin: 0; font-size: 25px; }
 .listing-host { margin: 2px 0 0; color: var(--text-dim); font-size: 14px; }
 .listing-rating { margin-left: auto; text-align: right; }
-.listing-rating .rating-score-value { font-size: 27px; color: var(--accent); }
+.listing-rating .rating-score-value { font-size: 32px; color: var(--accent); }
 .rating-count { display: block; color: var(--text-dim); font-size: 12px; }
 .listing-body { margin: 16px 0; color: var(--text-dim); }
 .listing-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 0; }
@@ -174,7 +174,7 @@ main.wrap { padding-top: 22px; padding-bottom: 40px; min-height: 100vh; }
     display: inline-block; padding: 9px 16px; border-radius: var(--radius);
     text-decoration: none; font-weight: 600; font-size: 14px; border: 1px solid transparent; cursor: pointer;
 }
-.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary { background: var(--accent); color: var(--accent-ink); font-size: 1rem; padding: 12px 24px; }
 .btn-secondary { background: transparent; color: var(--text); border-color: var(--line); }
 .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
