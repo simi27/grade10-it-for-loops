@@ -17,7 +17,7 @@ import type { Loader } from 'astro/loaders';
 const listingSchema = z.object({
   name: z.string(),
   slug: z.string(),
-  url: z.string().url(),
+  url: z.string(),
   description: z.string().default(''),
   category: z.string().optional(),
   rating: z.number().min(0).max(10).nullable().default(null),

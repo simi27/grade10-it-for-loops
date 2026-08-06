@@ -1,6 +1,12 @@
-dist/
+# Dependencies
 node_modules/
+
+# Build output
+dist/
+
+# Astro
 .astro/
+
+# Env
 .env
-.env.production
-.DS_Store
+.env.*
